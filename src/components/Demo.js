@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useReducer } from 'react'
 import Axios from 'axios'
 
 const reducer = (state, action) => {
@@ -8,6 +8,7 @@ const reducer = (state, action) => {
     case 'endGettingName':
       return {...state, name: action.name, loading: false, click: state.click + 1}
     default:
+      throw new Error('Unexpected action')
   }
 }
 
@@ -17,14 +18,14 @@ const Demo = () => {
     loading: false,
     click: 0
   }
-  const [state, setState] = useState(initialState)
+  const [state, setState] = useReducer(reducer, initialState)
 
   const handleClick = () => {
     const action = { type : 'startGettingName'}
-    setState(reducer(state, action))
+    setState(action)
     Axios.get('https://randomuser.me/api/').then(res => {
     const action = { type: 'endGettingName', name: res.data.results[0].name.first}
-    setState(reducer(state, action))
+    setState(action)
     })
   }
 
