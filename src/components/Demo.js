@@ -2,25 +2,26 @@ import React, { useState } from 'react'
 import Axios from 'axios'
 
 const Demo = () => {
-  const [name, setName] = useState('Bob')
-  const [loading, setLoading] = useState(false)
-  const [click, setClick] = useState(0)
+  const initialState = {
+    name: 'Bob',
+    loading: false,
+    click: 0
+  }
+  const [state, setState] = useState(initialState)
 
   const handleClick = () => {
-    setLoading(true)
+    setState({...state, loading: true})
     Axios.get('https://randomuser.me/api/').then(res => {
-    setName(res.data.results[0].name.first)
-    setLoading(false)
-    setClick(click + 1)
+    setState({...state, name: res.data.results[0].name.first, loading: false, click: state.click + 1})
     })
   }
 
   return (
-    loading ? <div>Loading...</div> : 
+    state.loading ? <div>Loading...</div> : 
     <main>
-      <p>{name}</p>
+      <p>{state.name}</p>
       <button onClick={handleClick}>Click ME</button>
-      <p>{click}</p>
+      <p>{state.click}</p>
     </main>
   )
 }
