@@ -1,23 +1,9 @@
 import React, { useReducer } from 'react'
 import Axios from 'axios'
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'startGettingName':
-      return {...state, loading: true}
-    case 'endGettingName':
-      return {...state, name: action.name, loading: false, click: state.click + 1}
-    default:
-      throw new Error('Unexpected action')
-  }
-}
+import { initialState, reducer } from './reducers/MonReducer'
 
 const Demo = () => {
-  const initialState = {
-    name: 'Bob',
-    loading: false,
-    click: 0
-  }
   const [{name, loading, click}, dispatch] = useReducer(reducer, initialState)
 
   const handleClick = () => {
