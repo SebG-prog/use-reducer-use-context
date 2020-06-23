@@ -1,18 +1,24 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useContext } from 'react'
 import Axios from 'axios'
 
 import { initialState, reducer } from './reducers/MonReducer'
 
+const MonContext = React.createContext(null)
+
 const Demo = () => {
   const [{ name, loading, click }, dispatch] = useReducer(reducer, initialState)
   return (
-    <GetName name={name} loading={loading} click={click} dispatch={dispatch} />
+    <MonContext.Provider value={dispatch}>
+    <GetName name={name} loading={loading} click={click} />
+    </MonContext.Provider>
   )
 }
 
 export default Demo
 
-const GetName = ({name, loading, click, dispatch}) => {
+const GetName = ({name, loading, click}) => {
+  const dispatch = useContext(MonContext)
+
   const handleClick = () => {
     dispatch({ type: 'startGettingName' })
     Axios.get('https://randomuser.me/api/').then(res => {
