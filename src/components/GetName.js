@@ -15,7 +15,7 @@ const GetName = () => {
 
   return (
     loading ? <div>Loading...</div> :
-      <main>
+      <main style={{backgroundColor: 'lightblue'}}>
         <p>{name}</p>
         <button onClick={handleClick}>Click ME</button>
         <p>{click}</p>

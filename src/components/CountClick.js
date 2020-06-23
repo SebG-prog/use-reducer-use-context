@@ -4,7 +4,7 @@ import MonContext from '../contexts/MonContext'
 const CountClick = () => {
   const [{click}] = useContext(MonContext)
   return (
-  <p>{click}</p>
+  <p style={{backgroundColor: 'pink'}}>{click}</p>
   )
 }
 
