@@ -18,14 +18,14 @@ const Demo = () => {
     loading: false,
     click: 0
   }
-  const [state, setState] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   const handleClick = () => {
     const action = { type : 'startGettingName'}
-    setState(action)
+    dispatch(action)
     Axios.get('https://randomuser.me/api/').then(res => {
     const action = { type: 'endGettingName', name: res.data.results[0].name.first}
-    setState(action)
+    dispatch(action)
     })
   }
 
