@@ -6,10 +6,10 @@ import { initialState, reducer } from '../reducers/MonReducer'
 import MonContext from '../contexts/MonContext'
 
 const Demo = () => {
-  const [{ name, loading, click }, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState)
   return (
-    <MonContext.Provider value={dispatch}>
-    <GetName name={name} loading={loading} click={click} />
+    <MonContext.Provider value={[state, dispatch]}>
+      <GetName />
     </MonContext.Provider>
   )
 }

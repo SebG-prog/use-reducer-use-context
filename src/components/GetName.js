@@ -3,8 +3,8 @@ import Axios from 'axios'
 
 import MonContext from '../contexts/MonContext'
 
-const GetName = ({name, loading, click}) => {
-  const dispatch = useContext(MonContext)
+const GetName = () => {
+  const [{name, loading, click}, dispatch] = useContext(MonContext)
 
   const handleClick = () => {
     dispatch({ type: 'startGettingName' })
