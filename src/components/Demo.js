@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import Axios from 'axios'
 
-const reducer = () => {
-  switch () {
-    case '':
-      return
-    case '':
-      return
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'startGettingName':
+      return {...state, loading: true}
+    case 'endGettingName':
+      return {...state, name: action.name, loading: false, click: state.click + 1}
     default:
   }
 }
@@ -20,11 +20,11 @@ const Demo = () => {
   const [state, setState] = useState(initialState)
 
   const handleClick = () => {
-    // Action 'startGettingName'
-    setState({...state, loading: true})
+    const action = { type : 'startGettingName'}
+    setState(reducer(state, action))
     Axios.get('https://randomuser.me/api/').then(res => {
-    // Action 'endGettingName'
-    setState({...state, name: res.data.results[0].name.first, loading: false, click: state.click + 1})
+    const action = { type: 'endGettingName', name: res.data.results[0].name.first}
+    setState(reducer(state, action))
     })
   }
 
