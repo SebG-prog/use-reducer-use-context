@@ -18,23 +18,21 @@ const Demo = () => {
     loading: false,
     click: 0
   }
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [{name, loading, click}, dispatch] = useReducer(reducer, initialState)
 
   const handleClick = () => {
-    const action = { type : 'startGettingName'}
-    dispatch(action)
+    dispatch({ type : 'startGettingName'})
     Axios.get('https://randomuser.me/api/').then(res => {
-    const action = { type: 'endGettingName', name: res.data.results[0].name.first}
-    dispatch(action)
+    dispatch({ type: 'endGettingName', name: res.data.results[0].name.first})
     })
   }
 
   return (
-    state.loading ? <div>Loading...</div> : 
+    loading ? <div>Loading...</div> : 
     <main>
-      <p>{state.name}</p>
+      <p>{name}</p>
       <button onClick={handleClick}>Click ME</button>
-      <p>{state.click}</p>
+      <p>{click}</p>
     </main>
   )
 }
